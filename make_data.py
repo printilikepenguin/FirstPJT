@@ -64,24 +64,17 @@ while i < N:
 
     
 # 저장 위치는 프로젝트 구조에 맞게 수정합니다.
-save_dir = '../backend/accounts/fixtures/accounts/user_data.json'
+save_dir = './user_data2.json'
 with open(save_dir, 'w', encoding="utf-8") as f:
     f.write('[')
     for i in range(N):
-        file["model"] = "accounts.User"
         file["pk"] = i+1
-        file["fields"] = {
-            'username': username_list[i],  # 유저 이름 랜덤 생성
-            'financial_products': ','.join([random.choice(financial_products) for _ in range(random.randint(0, 5))]), # 금융 상품 리스트
-            'age': random.randint(1, 100),  # 나이
-            'money': random.randrange(0, 100000000, 100000),    # 현재 가진 금액
-            'salary': random.randrange(0, 1500000000, 1000000), # 연봉
-            'password': "1234",
-            'nickname': None,
-            'is_active': True,
-            'is_staff': False,
-            'is_superuser': False
-        }
+        file["username"] = username_list[i]
+        file["age"] = random.randint(1, 100)
+        file["money"] = random.randrange(0, 100000000, 100000)
+        file["salary"] = random.randrange(0, 1500000000, 1000000)
+        file["saving_style"] = random.choice(['알뜰형', '성실형', '도전형'])
+        file["fin_prdt_cd"] = ','.join([random.choice(financial_products) for _ in range(random.randint(0, 5))])        
 
         json.dump(file, f, ensure_ascii=False, indent="\t")
         if i != N-1:
